@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anglers Daily</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body style="background-color:rgb(65, 62, 62);">
+    <!-- NAVBAR -->
+    <div>
+        <div class="navbar navbar-dark bg-dark">
+            <div class="d-flex justify-content-start align-items-center">
+                <h1 class="ms-3" style="color:rgb(135,157,158);">Anglers Daily</h1>
+                <a class="navbar-toggler ms-3" href="/logged/dashboard">Home</a>
+                <a class="navbar-toggler ms-3" href="/user_page/{{logged_user.id}}">My Page</a>
+                <!-- <a class="navbar-toggler ms-3" href="/about">about</a> -->
+            </div>
+            <div class="d-flex align-items-center">
+                <!-- <a class="navbar-toggler me-3" href="/sign_up">Sign Up</a> -->
+                <a class="btn btn-danger me-3" href="/users/logout">logout</a>
+            </div>
+        </div>
+    </div>
+    <div class="container m-3">
+
+
+
+        <h1 class="m-auto">Update your Location</h1>
+        <div class="container border">
+            <form class="d-flex" action="/locations/create" method="post">
+                {% for message in get_flashed_messages()%}
+                <p class="text-danger">{{message}}</p>
+                {% endfor %}
+                <div>
+                    <div class="m-3">
+                        <label class="form-label" for="location">Location: {{this_location.location}}</label>
+                        <input class="form-control" type="text" name="location" id="location" value="{{this_location.location}}">
+                    </div>
+                    <div class="m-3">
+                        <label class="form-label" for="lat">Latitude:</label>
+                        <input class="form-control" type="text" name="lat" id="lat" value="{{this_location.lat}}">
+                    </div>
+                    <div class="m-3">
+                        <label class="form-label" for="lng">Longitude:</label>
+                        <input class="form-control" type="text" name="lng" id="lng" value="{{this_location.lng}}">
+                    </div>
+                    <div class="m-3">
+                        <label class="form-label" for="time">Time of Catch: </label>
+                        <input class="form-control" type="time" name="time" id="time" value="{{this_location.time}}">
+                    </div>
+                    <div class="m-3">
+                        <label class="form-label" for="date">Date of date: </label>
+                        <input class="form-control" type="date" name="date" id="date" value="{{this_location.date}}">
+                    </div>
+                </div>
+                <div>
+
+                    <div class="m-3">
+                        <label class="form-label" for="weather">Weather: </label>
+                        <textarea class="form-control" name="weather" id="weather" cols="30" rows="5">{{this_location.weather}}</textarea>
+                    </div>
+                    <div class="m-3">
+                        <label class="form-label" for="comments">Comments: </label>
+                        <textarea class="form-control" name="comments" id="comments" cols="30" rows="5">{{this_location.comments}}"</textarea>
+                    </div>
+                    <button class="m-3 btn btn-primary" type="submit">Report</button>
+                </div>
+            </form>
+        </div>
+        <div>
+            <h1>Find a location</h1>
+            <div class="container w-50 bg-light">
+                <form action="#">
+                    <input id="pac-input" type="text" placeholder="search box">
+                </form>
+            </div>
+            <div class="align-items-center m-3">
+                <h3 id="info"></h3>
+            </div>
+        </div>
+    </div>
+    <div id="map"></div>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key={{MAP_KEY}}&libraries=places&callback=initMap"
+        async defer></script>
+
+</html>
