@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, flash
-from config.config_files import Keys
+# from config.config_files import Keys
 app = Flask(__name__)
-app.secret_key = Keys.Secret_Key
+app.secret_key = "shhhhhhhhh"
 
 
 DATABASE = 'fish_schema'
